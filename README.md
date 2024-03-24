@@ -1,3 +1,3 @@
-# MedSync
+# medisync
 
-MedSync is an API for managing and keeping your medicine warehouse up to date.
+medisync is an API for managing and keeping your medicine warehouse up to date.
