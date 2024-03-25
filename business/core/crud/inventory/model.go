@@ -1,6 +1,10 @@
 package inventory
 
-import "github.com/google/uuid"
+import (
+	"time"
+
+	"github.com/google/uuid"
+)
 
 // Inventory represents a single inventory that keeps medicine(s) in itself.
 type Inventory struct {
@@ -8,4 +12,6 @@ type Inventory struct {
 	Name		string
 	Description string
 	Medicines 	[]uuid.UUID
+	DateCreated time.Time
+	DateUpdated	time.Time
 }
