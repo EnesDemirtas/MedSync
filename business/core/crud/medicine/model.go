@@ -13,6 +13,7 @@ type Medicine struct {
 	Description 	string
 	Manufacturer	string
 	Type 			string
+	Tags 			[]Tag
 	ExpiryDate		time.Time
 	CreatedDate		time.Time
 	UpdatedDate		time.Time
