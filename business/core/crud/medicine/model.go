@@ -18,3 +18,23 @@ type Medicine struct {
 	CreatedDate		time.Time
 	UpdatedDate		time.Time
 }
+
+// NewMedicine contains information needed to create a new medicine.
+type NewMedicine struct {
+	Name 			string
+	Description		string
+	Manufacturer	string
+	Type 			string
+	Tags			[]Tag
+	ExpiryDate		time.Time
+}
+
+// UpdateMedicine contains information needed to update a medicine.
+type UpdateMedicine struct {
+	Name			*string
+	Description		*string
+	Manufacturer	*string
+	Type 			*string
+	Tags			[]Tag
+	ExpiryDate		*time.Time
+}
