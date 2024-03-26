@@ -4,16 +4,16 @@ import "github.com/google/uuid"
 
 // Tag represents a single tag.
 type Tag struct {
-	id		uuid.UUID
-	name 	string
+	ID		uuid.UUID
+	Name 	string
 }
 
-// Name returns the name of a tag.
-func (t Tag) Name() string {
-	return t.name
+// NewTag contains information needed to create a new tag.
+type NewTag struct {
+	Name string
 }
 
-// Id returns the id of a tag.
-func (t Tag) Id() uuid.UUID {
-	return t.id
+// UpdateTag contains information needed to update a tag.
+type UpdateTag struct {
+	Name *string
 }
