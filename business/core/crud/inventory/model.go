@@ -15,3 +15,17 @@ type Inventory struct {
 	DateCreated time.Time
 	DateUpdated	time.Time
 }
+
+// NewInventory contains information needed to create a new inventory.
+type NewInventory struct {
+	Name		string
+	Description	string
+	Medicines	[]uuid.UUID
+}
+
+// UpdateInventory contains information needed to update an inventory.
+type UpdateInventory struct {
+	Name 		*string
+	Description	*string
+	Medicines	[]uuid.UUID
+}
