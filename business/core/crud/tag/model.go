@@ -1,4 +1,4 @@
-package medicine
+package tag
 
 import "github.com/google/uuid"
 

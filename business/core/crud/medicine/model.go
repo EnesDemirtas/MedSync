@@ -13,7 +13,7 @@ type Medicine struct {
 	Description 	string
 	Manufacturer	string
 	Type 			string
-	Tags 			[]Tag
+	Tags 			[]uuid.UUID
 	ExpiryDate		time.Time
 	CreatedDate		time.Time
 	UpdatedDate		time.Time
@@ -25,7 +25,7 @@ type NewMedicine struct {
 	Description		string
 	Manufacturer	string
 	Type 			string
-	Tags			[]Tag
+	Tags			[]uuid.UUID
 	ExpiryDate		time.Time
 }
 
@@ -35,6 +35,6 @@ type UpdateMedicine struct {
 	Description		*string
 	Manufacturer	*string
 	Type 			*string
-	Tags			[]Tag
+	Tags			[]uuid.UUID
 	ExpiryDate		*time.Time
 }
