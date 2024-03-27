@@ -11,14 +11,15 @@ import (
 // QueryFilter holds the available fields a query can be filtered on.
 // We are using pointer semantics because the With API mutates the value.
 type QueryFilter struct {
-	ID				*uuid.UUID
-	Name 			*string	`validate:"omitempty,min=3"`
-	Description 	*string
-	Manufacturer	*string
-	Type 			*string
-	Tag				*uuid.UUID
-	Tags 			[]uuid.UUID
-	ExpiryDate		*time.Time
+	ID					*uuid.UUID
+	Name 				*string	`validate:"omitempty,min=3"`
+	Description 		*string
+	Manufacturer		*string
+	Type 				*string
+	Tag					*uuid.UUID
+	Tags 				[]uuid.UUID
+	StartExpiryDate		*time.Time
+	EndExpiryDate		*time.Time
 }
 
 // Validate can perform a check of tha data against the validate tags.
@@ -63,4 +64,16 @@ func (qf *QueryFilter) WithTag(tagID uuid.UUID) {
 // WithTags sets the Tags field of the QueryFilter value.
 func (qf *QueryFilter) WithTags(tagIDs []uuid.UUID) {
 	qf.Tags = tagIDs
+}
+
+// WithStartExpiryDate sets the StartExpiryDate field of the QueryFilter value.
+func (qf *QueryFilter) WithStartExpiryDate(startDate time.Time) {
+	d := startDate.UTC()
+	qf.StartExpiryDate = &d
+}
+
+// WithEndExpiryDate sets sthe EndExpiryDate field of the QueryFilter value.
+func (qf *QueryFilter) WithEndExpiryDate(endDate time.Time) {
+	d := endDate.UTC()
+	qf.EndExpiryDate = &d
 }
