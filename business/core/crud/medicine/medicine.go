@@ -10,6 +10,7 @@ import (
 	"time"
 
 	"github.com/EnesDemirtas/medisync/business/core/crud/delegate"
+	"github.com/EnesDemirtas/medisync/business/core/crud/tag"
 	"github.com/EnesDemirtas/medisync/business/data/transaction"
 	"github.com/EnesDemirtas/medisync/business/web/order"
 	"github.com/EnesDemirtas/medisync/foundation/logger"
@@ -32,20 +33,21 @@ type Storer interface {
 	Count(ctx context.Context, filter QueryFilter) (int, error)
 	QueryByID(ctx context.Context, medicineID uuid.UUID) (Medicine, error)
 	QueryByIDs(ctx context.Context, medicineIDs []uuid.UUID) ([]Medicine, error)
-	QueryByName(ctx context.Context, medicineName string) (Medicine, error)
 }
 
 // Core manages the set of APIs for medicine access.
 type Core struct {
 	log 		*logger.Logger
-	storer 		Storer
+	tagCore		*tag.Core
 	delegate	*delegate.Delegate
+	storer 		Storer
 }
 
 // NewCore constructs a medicine core API for use.
-func NewCore(log *logger.Logger, delegate *delegate.Delegate, storer Storer) *Core {
+func NewCore(log *logger.Logger, tagCore *tag.Core, delegate *delegate.Delegate, storer Storer) *Core {
 	return &Core{
 		log: 		log,
+		tagCore:	tagCore,
 		delegate:	delegate,
 		storer:		storer,
 	}
@@ -59,8 +61,14 @@ func (c *Core) ExecuteUnderTransaction(tx transaction.Transaction) (*Core, error
 		return nil, err
 	}
 
+	tagCore, err := c.tagCore.ExecuteUnderTransaction(tx)
+	if err != nil {
+		return nil, err
+	}
+
 	core := Core{
 		log:		c.log,
+		tagCore: 	tagCore,
 		delegate:	c.delegate,
 		storer:		trS,
 	}
@@ -70,6 +78,11 @@ func (c *Core) ExecuteUnderTransaction(tx transaction.Transaction) (*Core, error
 
 // Create adds a new medicine to the system.
 func (c *Core) Create(ctx context.Context, newMed Medicine) (Medicine, error) {
+	_, err := c.tagCore.QueryByIDs(ctx, newMed.Tags)
+	if err != nil {
+		return Medicine{}, fmt.Errorf("tag.querybyids: %s: %w", newMed.Tags, err)
+	}
+
 	now := time.Now()
 
 	med := Medicine{
@@ -110,6 +123,11 @@ func (c *Core) Update(ctx context.Context, med Medicine, updatedMed UpdateMedici
 	}
 
 	if updatedMed.Tags != nil {
+		_, err := c.tagCore.QueryByIDs(ctx, updatedMed.Tags)
+		if err != nil {
+			return Medicine{}, fmt.Errorf("tag.querybyids: %s: %w", updatedMed.Tags, err)
+		}
+		
 		med.Tags = updatedMed.Tags
 	}
 
@@ -182,14 +200,4 @@ func (c *Core) QueryByIDs(ctx context.Context, medicineIDs []uuid.UUID) ([]Medic
 	}
 
 	return medicines, nil
-}
-
-// QueryByName finds the medicine by a specified medicine name.
-func (c *Core) QueryByName(ctx context.Context, medicineName string) (Medicine, error) {
-	medicine, err := c.storer.QueryByName(ctx, medicineName)
-	if err != nil {
-		return Medicine{}, fmt.Errorf("query: medicineName[%s]: %w", medicineName, err)
-	}
-
-	return medicine, nil
 }
