@@ -18,9 +18,7 @@ import (
 )
 
 // Set of error variables for CRUD operations.
-var (
-	ErrNotFound 		= errors.New("medicine not found")
-)
+var	ErrNotFound = errors.New("medicine not found")
 
 // Storer interface ddeclares the behavior this package needs to persist and
 // retrieve data.
@@ -77,7 +75,7 @@ func (c *Core) ExecuteUnderTransaction(tx transaction.Transaction) (*Core, error
 }
 
 // Create adds a new medicine to the system.
-func (c *Core) Create(ctx context.Context, newMed Medicine) (Medicine, error) {
+func (c *Core) Create(ctx context.Context, newMed NewMedicine) (Medicine, error) {
 	_, err := c.tagCore.QueryByIDs(ctx, newMed.Tags)
 	if err != nil {
 		return Medicine{}, fmt.Errorf("tag.querybyids: %s: %w", newMed.Tags, err)
@@ -88,7 +86,7 @@ func (c *Core) Create(ctx context.Context, newMed Medicine) (Medicine, error) {
 	med := Medicine{
 		ID: 			uuid.New(),
 		Name:			newMed.Name,
-		Description: 	newMed.Manufacturer,
+		Description: 	newMed.Description,
 		Manufacturer: 	newMed.Manufacturer,
 		Type:			newMed.Type,
 		Tags:			newMed.Tags,
@@ -127,7 +125,7 @@ func (c *Core) Update(ctx context.Context, med Medicine, updatedMed UpdateMedici
 		if err != nil {
 			return Medicine{}, fmt.Errorf("tag.querybyids: %s: %w", updatedMed.Tags, err)
 		}
-		
+
 		med.Tags = updatedMed.Tags
 	}
 
