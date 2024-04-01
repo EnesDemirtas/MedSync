@@ -15,8 +15,8 @@ type Medicine struct {
 	Type 			string
 	Tags 			[]uuid.UUID
 	ExpiryDate		time.Time
-	CreatedDate		time.Time
-	UpdatedDate		time.Time
+	DateCreated		time.Time
+	DateUpdated		time.Time
 }
 
 // NewMedicine contains information needed to create a new medicine.

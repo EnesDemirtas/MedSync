@@ -5,6 +5,7 @@ package inventory
 
 import (
 	"context"
+	"errors"
 	"fmt"
 	"time"
 
@@ -14,6 +15,12 @@ import (
 	"github.com/EnesDemirtas/medisync/business/web/order"
 	"github.com/EnesDemirtas/medisync/foundation/logger"
 	"github.com/google/uuid"
+)
+
+// Set of error variables for CRUD operations.
+var	(
+	ErrNotFound = errors.New("inventory not found")
+	ErrUniquePK = errors.New("inventory already exists")
 )
 
 // Storer interface ddeclares the behavior this package needs to persist and

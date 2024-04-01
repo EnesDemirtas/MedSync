@@ -10,4 +10,5 @@ const (
 	OrderByID			= "inventory_id"
 	OrderByName			= "name"
 	OrderByDescription	= "description"
+	OrderByExpiryDate   = "expiry_date"
 )

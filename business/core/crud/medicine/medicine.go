@@ -18,7 +18,10 @@ import (
 )
 
 // Set of error variables for CRUD operations.
-var	ErrNotFound = errors.New("medicine not found")
+var	(
+	ErrNotFound = errors.New("medicine not found")
+	ErrUniquePK = errors.New("medicine already exists")
+)
 
 // Storer interface ddeclares the behavior this package needs to persist and
 // retrieve data.
@@ -91,8 +94,8 @@ func (c *Core) Create(ctx context.Context, newMed NewMedicine) (Medicine, error)
 		Type:			newMed.Type,
 		Tags:			newMed.Tags,
 		ExpiryDate: 	newMed.ExpiryDate,
-		CreatedDate: 	now,
-		UpdatedDate: 	now,
+		DateCreated: 	now,
+		DateUpdated: 	now,
 	}
 
 	if err := c.storer.Create(ctx, med); err != nil {
@@ -133,7 +136,7 @@ func (c *Core) Update(ctx context.Context, med Medicine, updatedMed UpdateMedici
 		med.ExpiryDate = *updatedMed.ExpiryDate
 	}
 
-	med.UpdatedDate = time.Now()
+	med.DateUpdated = time.Now()
 
 	if err := c.storer.Update(ctx, med); err != nil {
 		return Medicine{}, fmt.Errorf("update: %w", err)

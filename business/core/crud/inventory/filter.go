@@ -2,6 +2,7 @@ package inventory
 
 import (
 	"fmt"
+	"time"
 
 	"github.com/EnesDemirtas/medisync/foundation/validate"
 	"github.com/google/uuid"
@@ -15,6 +16,8 @@ type QueryFilter struct {
 	Description 		*string
 	Medicine			*uuid.UUID
 	Medicines 			[]uuid.UUID
+	StartExpiryDate		*time.Time
+	EndExpiryDate		*time.Time
 }
 
 // Validate can perform a check of tha data against the validate tags.
