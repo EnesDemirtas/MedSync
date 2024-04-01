@@ -29,7 +29,7 @@ type Storer interface {
 	Count(ctx context.Context, filter QueryFilter) (int, error)
 	QueryByID(ctx context.Context, tagID uuid.UUID) (Tag, error)
 	QueryByIDs(ctx context.Context, tagIDs []uuid.UUID) ([]Tag, error)
-	QueryByName(ctx context.Context, tagName string) (Tag, error)
+	// QueryByName(ctx context.Context, tagName string) (Tag, error)
 }
 
 // Core manages the set of APIs for tag access.
@@ -145,11 +145,11 @@ func (c *Core) QueryByIDs(ctx context.Context, tagIDs []uuid.UUID) ([]Tag, error
 }
 
 // QueryByName finds the tag by a specified tag name.
-func (c *Core) QueryByName(ctx context.Context, tagName string) (Tag, error) {
-	tag, err := c.storer.QueryByName(ctx, tagName)
-	if err != nil {
-		return Tag{}, fmt.Errorf("query: tagName[%s]: %w", tagName, err)
-	}
+// func (c *Core) QueryByName(ctx context.Context, tagName string) (Tag, error) {
+// 	tag, err := c.storer.QueryByName(ctx, tagName)
+// 	if err != nil {
+// 		return Tag{}, fmt.Errorf("query: tagName[%s]: %w", tagName, err)
+// 	}
 
-	return tag, nil
-}
+// 	return tag, nil
+// }

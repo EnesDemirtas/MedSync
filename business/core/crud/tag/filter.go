@@ -4,11 +4,13 @@ import (
 	"fmt"
 
 	"github.com/EnesDemirtas/medisync/foundation/validate"
+	"github.com/google/uuid"
 )
 
 // QueryFilter holds the available fields a query can be filtered on.
 // We are using pointer semantics because the With API mutates the value.
 type QueryFilter struct {
+	ID	 *uuid.UUID
 	Name *string `validate:"omitempty,min=3"`
 }
 
@@ -20,6 +22,12 @@ func (qf *QueryFilter) Validate() error {
 
 	return nil
 }
+
+// WithID sets the ID field of the QueryFilter value.
+func (qf *QueryFilter) WithID(id uuid.UUID) {
+	qf.ID = &id
+}
+
 
 // WithName sets the Name field of the QueryFilter value.
 func (qf *QueryFilter) WithName(name string) {
