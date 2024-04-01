@@ -6,6 +6,8 @@ import (
 	"github.com/google/uuid"
 )
 
+// TODO: Add barcode.
+
 // Medicine represents information about a single medicine.
 type Medicine struct {
 	ID 				uuid.UUID

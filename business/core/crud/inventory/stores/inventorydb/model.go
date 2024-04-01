@@ -9,6 +9,8 @@ import (
 	"github.com/google/uuid"
 )
 
+// TODO: Keep track of number of medicines.
+
 type dbInventory struct {
 	ID 			 uuid.UUID		`db:"inventory_id"`
 	Name		 string			`db:"name"`
