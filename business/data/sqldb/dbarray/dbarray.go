@@ -29,10 +29,14 @@ import (
 	"database/sql"
 	"database/sql/driver"
 	"encoding/hex"
+	"errors"
 	"fmt"
 	"reflect"
 	"strconv"
 	"strings"
+
+	"github.com/go-json-experiment/json"
+	"github.com/google/uuid"
 )
 
 var typeByteSlice = reflect.TypeOf([]byte{})
@@ -645,6 +649,26 @@ func (a Int32) Value() (driver.Value, error) {
 	}
 
 	return "{}", nil
+}
+
+// MedicineQuantities represents a map[uuid.UUID]int type will be marshalled/unmarshalled into/from JSONB column type in PostgreSQL.
+type MedicineQuantities map[uuid.UUID]int
+
+// Make the MedicineQuantities type implement the driver.Valuer interface. This method
+// simply returns the JSON-encoded representation of the map.
+func (a MedicineQuantities) Value() (driver.Value, error) {
+    return json.Marshal(a)
+}
+
+// Make the MedicineQuantities type implement the sql.Scanner interface. This method
+// simply decodes a JSON-encoded value into the map.
+func (a *MedicineQuantities) Scan(value interface{}) error {
+    b, ok := value.([]byte)
+    if !ok {
+        return errors.New("type assertion to []byte failed")
+    }
+
+    return json.Unmarshal(b, &a)
 }
 
 // String represents a one-dimensional array of the PostgreSQL character types.

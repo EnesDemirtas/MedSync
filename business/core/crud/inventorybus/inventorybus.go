@@ -79,20 +79,28 @@ func (c *Core) ExecuteUnderTransaction(tx transaction.Transaction) (*Core, error
 
 // Create adds a new inventory to the system.
 func (c *Core) Create(ctx context.Context, newInventory NewInventory) (Inventory, error) {
-	_, err := c.medicineCore.QueryByIDs(ctx, newInventory.Medicines)
+	med_ids := make([]uuid.UUID, len(newInventory.MedicineQuantities))
+
+	i := 0
+	for med_id := range newInventory.MedicineQuantities {
+		med_ids[i] = med_id
+		i++
+	}
+
+	_, err := c.medicineCore.QueryByIDs(ctx, med_ids)
 	if err != nil {
-		return Inventory{}, fmt.Errorf("medicine.querybyids: %s: %w", newInventory.Medicines, err)
+		return Inventory{}, fmt.Errorf("medicine.querybyids: %s: %w", med_ids, err)
 	}
 
 	now := time.Now()
 
 	inventory := Inventory{
-		ID: 			uuid.New(),
-		Name:			newInventory.Name,
-		Description: 	newInventory.Description,
-		Medicines: 		newInventory.Medicines,
-		DateCreated: 	now,
-		DateUpdated: 	now,
+		ID: 				uuid.New(),
+		Name:				newInventory.Name,
+		Description: 		newInventory.Description,
+		MedicineQuantities: newInventory.MedicineQuantities,
+		DateCreated: 		now,
+		DateUpdated: 		now,
 	}
 
 	if err := c.storer.Create(ctx, inventory); err != nil {
@@ -112,13 +120,21 @@ func (c *Core) Update(ctx context.Context, inventory Inventory, updatedInventory
 		inventory.Description = *updatedInventory.Description
 	}
 
-	if updatedInventory.Medicines != nil {
-		_, err := c.medicineCore.QueryByIDs(ctx, updatedInventory.Medicines)
+	if updatedInventory.MedicineQuantities != nil {
+		med_ids := make([]uuid.UUID, len(updatedInventory.MedicineQuantities))
+
+		i := 0
+		for med_id := range updatedInventory.MedicineQuantities {
+			med_ids[i] = med_id
+			i++
+		}
+	
+		_, err := c.medicineCore.QueryByIDs(ctx, med_ids)
 		if err != nil {
-			return Inventory{}, fmt.Errorf("medicine.querybyids: %s: %w", updatedInventory.Medicines, err)
+			return Inventory{}, fmt.Errorf("medicine.querybyids: %s: %w", med_ids, err)
 		}
 
-		inventory.Medicines = updatedInventory.Medicines
+		inventory.MedicineQuantities = updatedInventory.MedicineQuantities
 	}
 
 	inventory.DateUpdated = time.Now()
