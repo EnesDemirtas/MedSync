@@ -162,3 +162,13 @@ func (c *Core) Query(ctx context.Context, qp QueryParams) (page.Document[User], 
 
 	return page.NewDocument(toAppUsers(usrs), total, qp.Page, qp.Rows), nil
 }
+
+// QueryByID returns a user by its ID.
+func (c *Core) QueryByID(ctx context.Context) (User, error) {
+	usr, err := mid.GetUser(ctx)
+	if err != nil {
+		return User{}, errs.Newf(errs.Internal, "querybyid: %s", err)
+	}
+
+	return toAppUser(usr), nil
+}
