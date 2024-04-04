@@ -15,7 +15,7 @@ type dbInventory struct {
 	ID 			 		uuid.UUID					`db:"inventory_id"`
 	Name		 		string						`db:"name"`
 	Description  		sql.NullString				`db:"description"`
-	MedicineQuantities	dbarray.MedicineQuantities	`db:"medicines"`
+	MedicineQuantities	dbarray.MedicineQuantities	`db:"medicine_quantities"`
 	DateCreated  		time.Time					`db:"date_created"`
 	DateUpdated  		time.Time					`db:"date_updated"`
 }
