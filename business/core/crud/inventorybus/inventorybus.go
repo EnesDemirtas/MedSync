@@ -79,18 +79,7 @@ func (c *Core) ExecuteUnderTransaction(tx transaction.Transaction) (*Core, error
 
 // Create adds a new inventory to the system.
 func (c *Core) Create(ctx context.Context, newInventory NewInventory) (Inventory, error) {
-	med_ids := make([]uuid.UUID, len(newInventory.MedicineQuantities))
-
-	i := 0
-	for med_id := range newInventory.MedicineQuantities {
-		med_ids[i] = med_id
-		i++
-	}
-
-	_, err := c.medicineCore.QueryByIDs(ctx, med_ids)
-	if err != nil {
-		return Inventory{}, fmt.Errorf("medicine.querybyids: %s: %w", med_ids, err)
-	}
+	medQua := make(map[uuid.UUID]int)
 
 	now := time.Now()
 
@@ -98,7 +87,7 @@ func (c *Core) Create(ctx context.Context, newInventory NewInventory) (Inventory
 		ID: 				uuid.New(),
 		Name:				newInventory.Name,
 		Description: 		newInventory.Description,
-		MedicineQuantities: newInventory.MedicineQuantities,
+		MedicineQuantities: medQua,
 		DateCreated: 		now,
 		DateUpdated: 		now,
 	}

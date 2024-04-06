@@ -22,7 +22,6 @@ type Inventory struct {
 type NewInventory struct {
 	Name				string
 	Description			string
-	MedicineQuantities	map[uuid.UUID]int
 }
 
 // UpdateInventory contains information needed to update an inventory.
