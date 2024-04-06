@@ -28,7 +28,10 @@ CREATE TABLE medicines (
 	medicine_id  UUID      NOT NULL,
 	name         TEXT      NOT NULL,
     description  TEXT      NULL,
+	manufacturer TEXT	   NULL,
+	type         TEXT      NULL,
     tags         UUID[]    NULL,
+	expiry_date  TIMESTAMP NULL,
 	date_created TIMESTAMP NOT NULL,
 	date_updated TIMESTAMP NOT NULL,
 
