@@ -10,7 +10,7 @@ import (
 	"syscall"
 	"time"
 
-	"github.com/EnesDemirtas/medisync/apis/services/warehouseapiweb/build/crud"
+	"github.com/EnesDemirtas/medisync/apis/services/warehouse/build/crud"
 	"github.com/EnesDemirtas/medisync/app/api/mux"
 	"github.com/EnesDemirtas/medisync/business/api/auth"
 	"github.com/EnesDemirtas/medisync/business/core/crud/delegate"
@@ -69,7 +69,7 @@ func run(ctx context.Context, log *logger.Logger) error {
 		DB struct {
 			User 		 string `conf:"default:postgres"`
 			Password	 string `conf:"default:postgres,mask"`
-			HostPort	 string `conf:"default:0.0.0.0:3456"`
+			HostPort	 string `conf:"default:0.0.0.0:5432"`
 			Name		 string `conf:"default:postgres"`
 			MaxIdleConns int	`conf:"default:2"`
 			MaxOpenConns int 	`conf:"default:0"`

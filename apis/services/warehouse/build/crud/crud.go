@@ -2,7 +2,7 @@
 package crud
 
 import (
-	"github.com/EnesDemirtas/medisync/apis/services/warehouseapiweb/routes/crud/userapi"
+	"github.com/EnesDemirtas/medisync/apis/services/warehouse/routes/crud/userapi"
 	"github.com/EnesDemirtas/medisync/app/api/mux"
 	"github.com/EnesDemirtas/medisync/foundation/web"
 )
