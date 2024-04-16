@@ -2,8 +2,9 @@
 package crud
 
 import (
-	"github.com/EnesDemirtas/medisync/apis/services/warehouse/routes/crud/userapi"
-	"github.com/EnesDemirtas/medisync/app/api/mux"
+	"github.com/EnesDemirtas/medisync/apis/services/warehouse/mux"
+	"github.com/EnesDemirtas/medisync/apis/services/warehouse/route/crud/userapi"
+	"github.com/EnesDemirtas/medisync/apis/services/warehouse/route/sys/checkapi"
 	"github.com/EnesDemirtas/medisync/foundation/web"
 )
 
@@ -18,7 +19,13 @@ type add struct{}
 // Add implements the RouteAdder interface.
 func (add) Add(app *web.App, cfg mux.Config) {
 	userapi.Routes(app, userapi.Config{
-		UserBus: cfg.BusCrud.User,
-		Auth:	 cfg.Auth,
+		UserBus: cfg.BusDomain.User,
+		AuthSrv: cfg.AuthSrv,
+	})
+
+	checkapi.Routes(app, checkapi.Config{
+		Build: cfg.Build,
+		Log:   cfg.Log,
+		DB:    cfg.DB,
 	})
 }

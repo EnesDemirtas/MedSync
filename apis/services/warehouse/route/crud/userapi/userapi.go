@@ -3,13 +3,10 @@ package userapi
 
 import (
 	"context"
-	"errors"
 	"net/http"
-	"net/mail"
 
 	"github.com/EnesDemirtas/medisync/app/api/errs"
 	"github.com/EnesDemirtas/medisync/app/core/crud/userapp"
-	"github.com/EnesDemirtas/medisync/foundation/validate"
 	"github.com/EnesDemirtas/medisync/foundation/web"
 )
 
@@ -89,30 +86,6 @@ func (api *api) query(ctx context.Context, w http.ResponseWriter, r *http.Reques
 
 func (api *api) queryByID(ctx context.Context, w http.ResponseWriter, r *http.Request) error {
 	usr, err := api.userApp.QueryByID(ctx)
-	if err != nil {
-		return err
-	}
-
-	return web.Respond(ctx, w, usr, http.StatusOK)
-}
-
-func (api *api) token(ctx context.Context, w http.ResponseWriter, r *http.Request) error {
-	kid := web.Param(r, "kid")
-	if kid == "" {
-		return validate.NewFieldsError("kid", errors.New("missing kid"))
-	}
-
-	email, pass, ok := r.BasicAuth()
-	if !ok {
-		return errs.Newf(errs.Unauthenticated, "authorize: must provide email and password in Basic Auth")
-	}
-
-	addr, err := mail.ParseAddress(email)
-	if err != nil {
-		return errs.Newf(errs.Unauthenticated, "authorize: invalid email format")
-	}
-
-	usr, err := api.userApp.Token(ctx, kid, *addr, pass)
 	if err != nil {
 		return err
 	}
