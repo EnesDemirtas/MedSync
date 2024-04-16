@@ -4,16 +4,12 @@ package userapp
 import (
 	"context"
 	"errors"
-	"fmt"
-	"net/mail"
-	"time"
 
 	"github.com/EnesDemirtas/medisync/app/api/errs"
 	"github.com/EnesDemirtas/medisync/app/api/mid"
 	"github.com/EnesDemirtas/medisync/app/api/page"
 	"github.com/EnesDemirtas/medisync/business/api/auth"
 	"github.com/EnesDemirtas/medisync/business/core/crud/userbus"
-	"github.com/golang-jwt/jwt/v4"
 )
 
 // Core manages the set of app layer api functions for the user domain.
@@ -23,36 +19,27 @@ type Core struct {
 }
 
 // NewCore constructs a user core API for use.
-func NewCore(userBus *userbus.Core, auth *auth.Auth) *Core {
+func NewCore(userBus *userbus.Core) *Core {
 	return &Core{
 		userBus: userBus,
-		auth:	 auth,
+	}
+}
+
+// NewCoreWithAuth constructs a user core API for use with auth support.
+func NewCoreWithAuth(userBus *userbus.Core, auth *auth.Auth) *Core {
+	return &Core{
+		auth: 	 auth,
+		userBus: userBus,
 	}
 }
 
 // Token provides an API token for the authenticated user.
-func (c *Core) Token(ctx context.Context, kid string, addr mail.Address, password string) (Token, error) {
-	usr, err := c.userBus.Authenticate(ctx, addr, password)
-	if err != nil {
-		switch {
-		case errors.Is(err, userbus.ErrNotFound):
-			return Token{}, errs.New(errs.FailedPrecondition, err)
-		case errors.Is(err, userbus.ErrAuthenticationFailure):
-			return Token{}, errs.New(errs.Unauthenticated, err)
-		default:
-			return Token{}, fmt.Errorf("authenticate: %w", err)
-		}
+func (c *Core) Token(ctx context.Context, kid string) (Token, error) {
+	if c.auth == nil {
+		return Token{}, errs.Newf(errs.Internal, "auth not configured")
 	}
 
-	claims := auth.Claims{
-		RegisteredClaims: jwt.RegisteredClaims{
-			Subject:   usr.ID.String(),
-			Issuer:    "service project",
-			ExpiresAt: jwt.NewNumericDate(time.Now().UTC().Add(8760 * time.Hour)),
-			IssuedAt:  jwt.NewNumericDate(time.Now().UTC()),
-		},
-		Roles: usr.Roles,
-	}
+	claims := mid.GetClaims(ctx)
 
 	tkn, err := c.auth.GenerateToken(kid, claims)
 	if err != nil {

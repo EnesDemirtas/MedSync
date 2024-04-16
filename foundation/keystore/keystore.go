@@ -21,7 +21,7 @@ type key struct {
 	publicPEM  string
 }
 
-// keyStore represents an in memory store implementation of the
+// KeyStore represents an in memory store implementation of the
 // KeyLookup interface for use with the auth package.
 type KeyStore struct {
 	store map[string]key
@@ -53,7 +53,7 @@ func (ks *KeyStore) LoadRSAKeys(fsys fs.FS) error {
 		}
 
 		file, err := fsys.Open(fileName)
-		if err != nil  {
+		if err != nil {
 			return fmt.Errorf("opening key file: %w", err)
 		}
 		defer file.Close()
@@ -68,7 +68,7 @@ func (ks *KeyStore) LoadRSAKeys(fsys fs.FS) error {
 
 		privatePEM := string(pem)
 		publicPEM, err := toPublicPEM(privatePEM)
-		if err != nil  {
+		if err != nil {
 			return fmt.Errorf("converting private PEM to public: %w", err)
 		}
 
@@ -131,11 +131,11 @@ func toPublicPEM(privatePEM string) (string, error) {
 
 	asn1Bytes, err := x509.MarshalPKIXPublicKey(&pk.PublicKey)
 	if err != nil {
-		return "", fmt.Errorf("marshalling public key: %w", err)
+		return "", fmt.Errorf("marshaling public key: %w", err)
 	}
 
 	publicBlock := pem.Block{
-		Type:  "PUBLİC KEY",
+		Type:  "PUBLIC KEY",
 		Bytes: asn1Bytes,
 	}
 
