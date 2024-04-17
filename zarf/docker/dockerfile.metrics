@@ -1,0 +1,39 @@
+# Build the Go Binary.
+FROM golang:1.22 as build_metrics
+ENV CGO_ENABLED 0
+ARG BUILD_REF
+
+# Create the medisync directory and the copy the module files first and then
+# download the dependencies. If this doesn't change, we won't need to do this
+# again in future builds.
+# RUN mkdir /medisync
+# COPY go.* /medisync/
+# WORKDIR /medisync
+# RUN go mod download
+
+# Copy the source code into the container.
+COPY . /medisync
+
+# Build the medisync binary. We are doing this last since this will be different
+# every time we run through this process.
+WORKDIR /medisync/apis/services/metrics
+RUN go build -ldflags "-X main.build=${BUILD_REF}"
+
+
+# Run the Go Binary in Alpine.
+FROM alpine:3.19
+ARG BUILD_DATE
+ARG BUILD_REF
+RUN addgroup -g 1000 -S metrics && \
+    adduser -u 1000 -h /medisync -G metrics -S metrics
+COPY --from=build_metrics --chown=metrics:metrics /medisync/apis/services/metrics/metrics /medisync/metrics
+WORKDIR /medisync
+USER metrics
+CMD ["./metrics"]
+
+LABEL org.opencontainers.image.created="${BUILD_DATE}" \
+      org.opencontainers.image.title="metrics" \
+      org.opencontainers.image.authors="Enes Demirtaş <enesdemirtas255@gmail.com>" \
+      org.opencontainers.image.source="https://github.com/EnesDemirtas/medisync/tree/master/apis/services/metrics" \
+      org.opencontainers.image.revision="${BUILD_REF}" \
+      org.opencontainers.image.vendor="Enes Demirtaş"

@@ -1,0 +1,44 @@
+# Build the Go Binary.
+FROM golang:1.22 as build_warehouse
+ENV CGO_ENABLED 0
+ARG BUILD_REF
+
+# Create the medisync directory and the copy the module files first and then
+# download the dependencies. If this doesn't change, we won't need to do this
+# again in future builds.
+RUN mkdir /medisync
+COPY go.* /medisync/
+WORKDIR /medisync
+RUN go mod download
+
+# Copy the source code into the container.
+COPY . /medisync
+
+# Build the admin binary.
+WORKDIR /medisync/apis/tooling/admin
+RUN go build -ldflags "-X main.build=${BUILD_REF}"
+
+# Build the medisync binary.
+WORKDIR /medisync/apis/services/warehouse
+RUN go build -ldflags "-X main.build=${BUILD_REF}"
+
+
+# Run the Go Binary in Alpine.
+FROM alpine:3.19
+ARG BUILD_DATE
+ARG BUILD_REF
+RUN addgroup -g 1000 -S warehouse && \
+    adduser -u 1000 -h /medisync -G warehouse -S warehouse
+COPY --from=build_warehouse --chown=warehouse:warehouse /medisync/zarf/keys/. /medisync/zarf/keys/.
+COPY --from=build_warehouse --chown=warehouse:warehouse /medisync/apis/tooling/admin/admin /medisync/admin
+COPY --from=build_warehouse --chown=warehouse:warehouse /medisync/apis/services/warehouse/warehouse /medisync/warehouse
+WORKDIR /medisync
+USER warehouse
+CMD ["./warehouse"]
+
+LABEL org.opencontainers.image.created="${BUILD_DATE}" \
+      org.opencontainers.image.title="warehouse-api" \
+      org.opencontainers.image.authors="Enes Demirtaş <enesdemirtas255@gmail.com>" \
+      org.opencontainers.image.source="https://github.com/EnesDemirtas/medisync/tree/master/apis/services/warehouse" \
+      org.opencontainers.image.revision="${BUILD_REF}" \
+      org.opencontainers.image.vendor="Enes Demirtaş"
