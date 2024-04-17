@@ -124,7 +124,7 @@ KIND_CLUSTER    := medisync-cluster
 NAMESPACE       := warehouse-system
 WAREHOUSE_APP   := warehouse
 AUTH_APP        := auth
-BASE_IMAGE_NAME := localhost/EnesDemirtas
+BASE_IMAGE_NAME := localhost/medisync
 VERSION         := 0.0.1
 WAREHOUSE_IMAGE := $(BASE_IMAGE_NAME)/$(WAREHOUSE_APP):$(VERSION)
 METRICS_IMAGE   := $(BASE_IMAGE_NAME)/metrics:$(VERSION)
@@ -384,7 +384,7 @@ token:
 	curl -il \
 	--user "admin@example.com:gophers" http://localhost:6000/v1/auth/token/54bb2165-71e1-41a6-af3e-7da4a0e1e2c1
 
-# export TOKEN="COPY TOKEN STRING FROM LAST CALL"
+export TOKEN="eyJhbGciOiJSUzI1NiIsImtpZCI6IjU0YmIyMTY1LTcxZTEtNDFhNi1hZjNlLTdkYTRhMGUxZTJjMSIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzZXJ2aWNlIHByb2plY3QiLCJzdWIiOiI1Y2YzNzI2Ni0zNDczLTQwMDYtOTg0Zi05MzI1MTIyNjc4YjciLCJleHAiOjE3NDQ5MDczMjUsImlhdCI6MTcxMzM3MTMyNSwicm9sZXMiOlsiQURNSU4iXX0.TEZ3RpS2jWvZw5btegF6vxpQoVv8ZrdVGSHzf7xcpGPbPBcNvOCIutTurWKfqrwF4hOlq0dBsdCjgNUmML4RAdUJH-YM-KorbouD-rBHvcy62Kmof9Sv9bVtkxzrTNmxUJwq7OBaKMUL7JZzVeAZbYZQ2hqT_zFaDt9ZkWwSYla_tUP36MPwCg7hkDmH2cfDedLeCRLNL3jzOnRbAP2taSfdxdSEDWW7ssQC_JW8NltWkCW02PGb98hFbIKjBY9QNnm8Bl8W0RWB3zy28ODfkYeHaYK1JA7dSSNGgsHhWDNNhAQ2Cl-Lxx4EhL9qXI3qAqi0bbLbVgg3V0N2dSgF3A"
 
 users:
 	curl -il \

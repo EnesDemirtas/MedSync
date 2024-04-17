@@ -8,8 +8,8 @@ patches:
     - path: ./dev-warehouse-patch-service.yaml
 images:
     - name: warehouse-image
-      newName: localhost/EnesDemirtas/warehouse
+      newName: localhost/medisync/warehouse
       newTag: 0.0.1
     - name: metrics-image
-      newName: localhost/EnesDemirtas/metrics
+      newName: localhost/medisync/metrics
       newTag: 0.0.1
