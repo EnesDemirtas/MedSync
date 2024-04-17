@@ -5,8 +5,8 @@ import (
 	"net/mail"
 	"time"
 
-	"github.com/EnesDemirtas/medisync/business/core/crud/userbus"
 	"github.com/EnesDemirtas/medisync/business/data/sqldb/dbarray"
+	"github.com/EnesDemirtas/medisync/business/domain/userbus"
 	"github.com/google/uuid"
 )
 

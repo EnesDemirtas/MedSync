@@ -4,7 +4,7 @@ import (
 	"fmt"
 
 	"github.com/EnesDemirtas/medisync/business/api/order"
-	"github.com/EnesDemirtas/medisync/business/core/crud/userbus"
+	"github.com/EnesDemirtas/medisync/business/domain/userbus"
 )
 
 var orderByFields = map[string]string{

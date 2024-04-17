@@ -9,10 +9,10 @@ import (
 	"net/mail"
 
 	"github.com/EnesDemirtas/medisync/business/api/order"
-	"github.com/EnesDemirtas/medisync/business/core/crud/userbus"
 	"github.com/EnesDemirtas/medisync/business/data/sqldb"
 	"github.com/EnesDemirtas/medisync/business/data/sqldb/dbarray"
 	"github.com/EnesDemirtas/medisync/business/data/transaction"
+	"github.com/EnesDemirtas/medisync/business/domain/userbus"
 	"github.com/EnesDemirtas/medisync/foundation/logger"
 	"github.com/google/uuid"
 	"github.com/jmoiron/sqlx"

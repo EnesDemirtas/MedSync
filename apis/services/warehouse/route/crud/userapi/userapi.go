@@ -6,7 +6,7 @@ import (
 	"net/http"
 
 	"github.com/EnesDemirtas/medisync/app/api/errs"
-	"github.com/EnesDemirtas/medisync/app/core/crud/userapp"
+	"github.com/EnesDemirtas/medisync/app/domain/userapp"
 	"github.com/EnesDemirtas/medisync/foundation/web"
 )
 

@@ -4,7 +4,7 @@ import (
 	"net/http"
 
 	"github.com/EnesDemirtas/medisync/app/api/page"
-	"github.com/EnesDemirtas/medisync/app/core/crud/userapp"
+	"github.com/EnesDemirtas/medisync/app/domain/userapp"
 )
 
 func parseQueryParams(r *http.Request) (userapp.QueryParams, error) {

@@ -8,8 +8,8 @@ import (
 
 	"github.com/EnesDemirtas/medisync/app/api/authsrv"
 	"github.com/EnesDemirtas/medisync/app/api/mid"
-	"github.com/EnesDemirtas/medisync/business/core/crud/delegate"
-	"github.com/EnesDemirtas/medisync/business/core/crud/userbus"
+	"github.com/EnesDemirtas/medisync/business/api/delegate"
+	"github.com/EnesDemirtas/medisync/business/domain/userbus"
 	"github.com/EnesDemirtas/medisync/foundation/logger"
 	"github.com/EnesDemirtas/medisync/foundation/web"
 	"github.com/jmoiron/sqlx"

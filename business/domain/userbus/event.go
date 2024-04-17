@@ -3,7 +3,7 @@ package userbus
 import (
 	"fmt"
 
-	"github.com/EnesDemirtas/medisync/business/core/crud/delegate"
+	"github.com/EnesDemirtas/medisync/business/api/delegate"
 	"github.com/go-json-experiment/json"
 	"github.com/google/uuid"
 )

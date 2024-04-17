@@ -8,8 +8,8 @@ import (
 	"errors"
 	"fmt"
 
+	"github.com/EnesDemirtas/medisync/business/api/delegate"
 	"github.com/EnesDemirtas/medisync/business/api/order"
-	"github.com/EnesDemirtas/medisync/business/core/crud/delegate"
 	"github.com/EnesDemirtas/medisync/business/data/transaction"
 	"github.com/EnesDemirtas/medisync/foundation/logger"
 	"github.com/google/uuid"

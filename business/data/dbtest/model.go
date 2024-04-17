@@ -1,6 +1,6 @@
 package dbtest
 
-import "github.com/EnesDemirtas/medisync/business/core/crud/userbus"
+import "github.com/EnesDemirtas/medisync/business/domain/userbus"
 
 // User represents an app user specified for the test.
 type User struct {

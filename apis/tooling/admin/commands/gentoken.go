@@ -7,9 +7,9 @@ import (
 	"time"
 
 	"github.com/EnesDemirtas/medisync/business/api/auth"
-	"github.com/EnesDemirtas/medisync/business/core/crud/userbus"
-	"github.com/EnesDemirtas/medisync/business/core/crud/userbus/stores/userdb"
 	"github.com/EnesDemirtas/medisync/business/data/sqldb"
+	"github.com/EnesDemirtas/medisync/business/domain/userbus"
+	"github.com/EnesDemirtas/medisync/business/domain/userbus/stores/userdb"
 	"github.com/EnesDemirtas/medisync/foundation/keystore"
 	"github.com/EnesDemirtas/medisync/foundation/logger"
 	"github.com/golang-jwt/jwt/v4"

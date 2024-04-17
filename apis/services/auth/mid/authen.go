@@ -12,7 +12,7 @@ import (
 	"github.com/EnesDemirtas/medisync/app/api/errs"
 	"github.com/EnesDemirtas/medisync/app/api/mid"
 	"github.com/EnesDemirtas/medisync/business/api/auth"
-	"github.com/EnesDemirtas/medisync/business/core/crud/userbus"
+	"github.com/EnesDemirtas/medisync/business/domain/userbus"
 	"github.com/EnesDemirtas/medisync/foundation/web"
 	"github.com/golang-jwt/jwt/v4"
 	"github.com/google/uuid"

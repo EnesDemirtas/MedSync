@@ -9,8 +9,8 @@ import (
 	"testing"
 	"time"
 
-	"github.com/EnesDemirtas/medisync/business/core/crud/userbus"
 	"github.com/EnesDemirtas/medisync/business/data/dbtest"
+	"github.com/EnesDemirtas/medisync/business/domain/userbus"
 	"github.com/google/go-cmp/cmp"
 	"golang.org/x/crypto/bcrypt"
 )

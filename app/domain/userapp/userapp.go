@@ -9,7 +9,7 @@ import (
 	"github.com/EnesDemirtas/medisync/app/api/mid"
 	"github.com/EnesDemirtas/medisync/app/api/page"
 	"github.com/EnesDemirtas/medisync/business/api/auth"
-	"github.com/EnesDemirtas/medisync/business/core/crud/userbus"
+	"github.com/EnesDemirtas/medisync/business/domain/userbus"
 )
 
 // Core manages the set of app layer api functions for the user domain.

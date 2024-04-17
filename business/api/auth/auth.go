@@ -7,8 +7,8 @@ import (
 	"fmt"
 	"strings"
 
-	"github.com/EnesDemirtas/medisync/business/core/crud/userbus"
-	"github.com/EnesDemirtas/medisync/business/core/crud/userbus/stores/userdb"
+	"github.com/EnesDemirtas/medisync/business/domain/userbus"
+	"github.com/EnesDemirtas/medisync/business/domain/userbus/stores/userdb"
 	"github.com/EnesDemirtas/medisync/foundation/logger"
 	"github.com/golang-jwt/jwt/v4"
 	"github.com/google/uuid"

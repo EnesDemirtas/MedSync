@@ -5,9 +5,9 @@ import (
 
 	"github.com/EnesDemirtas/medisync/apis/services/warehouse/mid"
 	"github.com/EnesDemirtas/medisync/app/api/authsrv"
-	"github.com/EnesDemirtas/medisync/app/core/crud/userapp"
+	"github.com/EnesDemirtas/medisync/app/domain/userapp"
 	"github.com/EnesDemirtas/medisync/business/api/auth"
-	"github.com/EnesDemirtas/medisync/business/core/crud/userbus"
+	"github.com/EnesDemirtas/medisync/business/domain/userbus"
 	"github.com/EnesDemirtas/medisync/foundation/logger"
 	"github.com/EnesDemirtas/medisync/foundation/web"
 )

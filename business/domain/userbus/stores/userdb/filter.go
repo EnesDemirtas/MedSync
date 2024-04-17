@@ -5,7 +5,7 @@ import (
 	"fmt"
 	"strings"
 
-	"github.com/EnesDemirtas/medisync/business/core/crud/userbus"
+	"github.com/EnesDemirtas/medisync/business/domain/userbus"
 )
 
 func applyFilter(filter userbus.QueryFilter, data map[string]interface{}, buf *bytes.Buffer) {

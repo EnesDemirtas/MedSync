@@ -7,10 +7,10 @@ import (
 	"errors"
 
 	"github.com/EnesDemirtas/medisync/business/api/auth"
-	"github.com/EnesDemirtas/medisync/business/core/crud/inventorybus"
-	"github.com/EnesDemirtas/medisync/business/core/crud/medicinebus"
-	"github.com/EnesDemirtas/medisync/business/core/crud/tagbus"
-	"github.com/EnesDemirtas/medisync/business/core/crud/userbus"
+	"github.com/EnesDemirtas/medisync/business/domain/inventorybus"
+	"github.com/EnesDemirtas/medisync/business/domain/medicinebus"
+	"github.com/EnesDemirtas/medisync/business/domain/tagbus"
+	"github.com/EnesDemirtas/medisync/business/domain/userbus"
 	"github.com/google/uuid"
 )
 
