@@ -2,9 +2,9 @@
 package all
 
 import (
-	"github.com/EnesDemirtas/medisync/apis/services/auth/http/mux"
-	"github.com/EnesDemirtas/medisync/apis/services/auth/http/route/authapi"
-	"github.com/EnesDemirtas/medisync/apis/services/auth/http/route/checkapi"
+	"github.com/EnesDemirtas/medisync/apis/services/auth/mux"
+	"github.com/EnesDemirtas/medisync/apis/services/auth/route/authapi"
+	"github.com/EnesDemirtas/medisync/apis/services/auth/route/checkapi"
 	"github.com/EnesDemirtas/medisync/foundation/web"
 )
 

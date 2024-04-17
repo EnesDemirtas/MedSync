@@ -12,8 +12,8 @@ import (
 	"syscall"
 	"time"
 
-	"github.com/EnesDemirtas/medisync/apis/services/auth/http/build/all"
-	"github.com/EnesDemirtas/medisync/apis/services/auth/http/mux"
+	"github.com/EnesDemirtas/medisync/apis/services/auth/build/all"
+	"github.com/EnesDemirtas/medisync/apis/services/auth/mux"
 	"github.com/EnesDemirtas/medisync/app/api/debug"
 	"github.com/EnesDemirtas/medisync/business/api/auth"
 	"github.com/EnesDemirtas/medisync/business/core/crud/delegate"

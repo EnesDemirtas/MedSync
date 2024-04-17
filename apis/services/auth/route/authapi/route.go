@@ -3,7 +3,7 @@ package authapi
 import (
 	"net/http"
 
-	"github.com/EnesDemirtas/medisync/apis/services/auth/http/mid"
+	"github.com/EnesDemirtas/medisync/apis/services/auth/mid"
 	"github.com/EnesDemirtas/medisync/app/core/crud/userapp"
 	"github.com/EnesDemirtas/medisync/business/api/auth"
 	"github.com/EnesDemirtas/medisync/business/core/crud/userbus"
