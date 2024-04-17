@@ -6,7 +6,7 @@ import (
 	"net/http"
 	"os"
 
-	midhttp "github.com/EnesDemirtas/medisync/app/api/mid/http"
+	"github.com/EnesDemirtas/medisync/app/api/mid"
 	"github.com/EnesDemirtas/medisync/business/api/auth"
 	"github.com/EnesDemirtas/medisync/business/core/crud/delegate"
 	"github.com/EnesDemirtas/medisync/business/core/crud/userbus"
@@ -61,14 +61,14 @@ func WebAPI(cfg Config, routeAdder RouteAdder, options ...func(opts *Options)) h
 	app := web.NewApp(
 		cfg.Shutdown,
 		cfg.Tracer,
-		midhttp.Logger(cfg.Log),
-		midhttp.Errors(cfg.Log),
-		midhttp.Metrics(),
-		midhttp.Panics(),
+		mid.Logger(cfg.Log),
+		mid.Errors(cfg.Log),
+		mid.Metrics(),
+		mid.Panics(),
 	)
 
 	if len(opts.corsOrigin) > 0 {
-		app.EnableCORS(midhttp.Cors(opts.corsOrigin))
+		app.EnableCORS(mid.Cors(opts.corsOrigin))
 	}
 
 	routeAdder.Add(app, cfg)
